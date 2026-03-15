@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Upload Image</h1>
+    <input type="number" name="eid" id="eid" placeholder="Enter eid" required><br><br>
+    <input type="file" name="img" id="img" accept="image/*" required><br><br>
+    <button id="submit">Submit</button>
+
+    <h1>Fetch Image</h1>
+    <input type="number" name="fetchEid" id="fetchEid" placeholder="Enter eid to fetch image" required><br><br>
+    <button id="fetchButton">Fetch Image</button>
+    <img id="imageDisplay" src="" alt="Image will appear here" style="display: none; margin-top: 20px;"/>
+
+    <script src="./image.js"></script>
+</body>
+</html>
