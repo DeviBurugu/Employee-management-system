@@ -1,0 +1,84 @@
+package com.deviinfotech.employee_management_system.dao;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.deviinfotech.employee_management_system.dto.Employee;
+import com.deviinfotech.employee_management_system.repository.EmployeeRepo;
+
+import lombok.Data;
+@Data
+@Repository
+public class EmployeeDao {
+	@Autowired
+	private EmployeeRepo repo;
+	
+	public Employee registration(Employee employee) {
+		return repo.save(employee);
+//		return repository.save(person);
+	}
+
+	
+	
+	public Employee updateEmployeeById(Employee employee) {
+		Optional<Employee> empdb = repo.findById(employee.getEid());
+		if(empdb.isPresent()) {
+			return empdb.get();
+		}
+		else {
+			return null;
+		}
+	}
+	
+//	update
+	public Employee deleteEmployee(int eid) {
+		Optional<Employee> employee=repo.findById(eid);
+		if(employee.isPresent()) {
+			repo.deleteById(eid);
+			return employee.get();
+		}else {
+			return null;
+		}
+	}
+
+	public Employee updateEmployee(Employee employee) {
+//		return repository.save(employee);
+		Optional<Employee> empdb= repo.findById(employee.getEid());
+		if(empdb.isPresent()) {
+			repo.save(employee);
+			return empdb.get();
+		}
+		else {
+			return null;
+		}
+	}
+		
+	public Employee findEmployeeById(int id) {
+		Optional<Employee> empdb = repo.findById(id);
+		if(empdb.isPresent()) {
+			return empdb.get();
+		}
+		else {
+			return null;
+		}
+	}
+
+
+	
+	public Employee findByEmail(String email) {
+		return repo.findByEmail(email);
+	}
+	
+	
+	public Employee fetchImg(int eid) {
+		Optional<Employee> employee=repo.findById(eid);
+		if(employee.isPresent()) {
+			repo.findById(eid);
+			return employee.get();
+		}else {
+			return null;
+		}
+	}
+}
