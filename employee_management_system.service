@@ -1,0 +1,130 @@
+package com.deviinfotech.employee_management_system.service;
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.deviinfotech.employee_management_system.dao.EmployeeDao;
+import com.deviinfotech.employee_management_system.dto.Employee;
+import com.deviinfotech.employee_management_system.exception.IdNotFound;
+import com.deviinfotech.employee_management_system.repository.EmployeeRepo;
+import com.deviinfotech.employee_management_system.util.MyEmailService;
+import com.deviinfotech.employee_management_system.util.ResponseStructure;
+
+import lombok.Data;
+
+@Service
+public class EmployeeService {
+	@Autowired
+	private EmployeeDao dao;
+	@Autowired
+	private MyEmailService emailService;
+	
+	ResponseStructure<Employee> structure=new ResponseStructure<Employee>();
+	
+	public ResponseEntity<ResponseStructure<Employee>> registration(Employee employee) {
+		structure.setMsg("sucessfully");
+		structure.setData(dao.registration(employee));
+//		structure.setStatuscode(HttpStatus.CREATED.value());
+		structure.setStatuscode(HttpStatus.CREATED.value());
+		emailService.sendEmail(employee.getEmail());
+		return new ResponseEntity<ResponseStructure<Employee>>(structure,HttpStatus.CREATED);
+	}
+
+	public ResponseEntity<ResponseStructure<Employee>> updateEmployee(Employee employee) {
+		Employee employee2=dao.findEmployeeById(employee.getEid());
+		if(employee2 !=null) {
+			structure.setData(dao.updateEmployee(employee));
+			structure.setMsg("record updated");
+			structure.setStatuscode(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<Employee>>(structure,HttpStatus.OK);
+		}else {
+			throw new IdNotFound("id is not present");
+		}
+	}
+
+	
+	public ResponseEntity<ResponseStructure<Employee>> updateImg(int id, MultipartFile file) throws IOException {
+		Employee employee =dao.findEmployeeById(id);
+		if(employee.getImg()==null) {
+			
+			employee.setEid(id);
+			employee.setImg(file.getBytes());
+			structure.setData(dao.updateEmployee(employee));
+			structure.setMsg("img uploaded");
+			structure.setStatuscode(HttpStatus.CREATED.value());
+			return new ResponseEntity<ResponseStructure<Employee>>(structure,HttpStatus.CREATED);
+		}else {
+			throw new IdNotFound("img not found");
+		}
+		
+	}
+	
+	public ResponseEntity<ResponseStructure<Employee>> changeImg(int id, MultipartFile file) throws IOException {
+		Employee employee =dao.findEmployeeById(id);
+		if(employee.getImg()!=null) {
+			
+			employee.setEid(id);
+			employee.setImg(file.getBytes());
+			structure.setData(dao.updateEmployee(employee));
+			structure.setMsg("img not uploaded");
+			structure.setStatuscode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<Employee>>(structure,HttpStatus.FOUND);
+		}else {
+			throw new IdNotFound("img no uploaded");
+		}
+		
+	}
+	
+//	delete
+	public ResponseEntity<ResponseStructure<Employee>> deleteEmployee(int eid) {
+		structure.setData(dao.deleteEmployee(eid));
+		structure.setMsg("data delete");
+		structure.setStatuscode(HttpStatus.OK.value());
+		return new ResponseEntity<>(structure,HttpStatus.OK);
+	}
+	
+	
+//	 login
+	public ResponseEntity<ResponseStructure<Employee>> login(String email , String password){
+		Employee employee2= dao.findByEmail(email);
+		if(employee2 !=null) {
+			if(employee2.getEmail().equals(email)) {
+				if(employee2.getPassword().equals(password)) {
+//				employee2.getEmail();
+//				employee2.getPassword();
+//				System.out.println("hello all");
+				structure.setMsg("login is successfully");
+				structure.setData(employee2);
+				structure.setStatuscode(HttpStatus.FOUND.value());
+				
+				return new ResponseEntity<ResponseStructure<Employee>>(structure,HttpStatus.FOUND);
+			}else {
+				throw new IdNotFound("password is in correct please correct the password and try");
+			}
+		}else {
+			throw new IdNotFound("email incorrect");
+		}
+		
+		
+	}else {
+		throw new IdNotFound("email and password not found");
+	}
+	}
+//	feching img
+	public ResponseEntity<ResponseStructure<Employee>> fetchImg(int eid) {
+		structure.setData(dao.fetchImg(eid));
+		structure.setMsg("img fetched successfully");
+		structure.setStatuscode(HttpStatus.OK.value());
+
+		return new ResponseEntity<> (structure,HttpStatus.OK);
+	}
+	
+	
+	
+}
