@@ -1,0 +1,18 @@
+package com.deviinfotech.employee_management_system.exception;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class IdNotFound extends RuntimeException {
+	String s="employee id is not person";
+	
+	public String getMessage() {
+		return s;
+	}
+}
+
+
+
