@@ -1,0 +1,25 @@
+package com.deviinfotech.employee_management_system.exceptionhanller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.deviinfotech.employee_management_system.exception.IdNotFound;
+import com.deviinfotech.employee_management_system.util.ResponseStructure;
+
+
+@RestControllerAdvice
+public class MyExceptionHandler {
+
+	ResponseStructure<String> structure=new ResponseStructure<String>();
+	
+	@ExceptionHandler(IdNotFound.class)
+	public ResponseEntity<ResponseStructure<String>> idNotFound(IdNotFound idNotFound) {
+		structure.setMsg("data not found");
+		structure.setData(idNotFound.getMessage());
+		structure.setStatuscode(HttpStatus.NOT_FOUND.value());
+		return new ResponseEntity<ResponseStructure<String>>(structure,HttpStatus.NOT_FOUND);
+	}
+
+}
