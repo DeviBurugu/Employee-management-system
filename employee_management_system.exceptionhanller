@@ -4,15 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import com.deviinfotech.employee_management_system.exception.IdNotFound;
 import com.deviinfotech.employee_management_system.util.ResponseStructure;
 
 
 @RestControllerAdvice
 public class MyExceptionHandler {
-
-	ResponseStructure<String> structure=new ResponseStructure<String>();
+ 	ResponseStructure<String> structure=new ResponseStructure<String>();
 	
 	@ExceptionHandler(IdNotFound.class)
 	public ResponseEntity<ResponseStructure<String>> idNotFound(IdNotFound idNotFound) {
