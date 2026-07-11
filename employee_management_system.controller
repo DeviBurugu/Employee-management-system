@@ -63,10 +63,7 @@ public class EmployeeController {
 	
 		return service.login(email, password);
 	}
-//	@GetMapping("/login")
-//	public ResponseEntity<ResponseStructure<Employee>> login(@RequestBody  Employee employee){
-//		return service.login(employee.getEmail(), employee.getPassword());
-//	}
+
 //	feching img
 	@GetMapping("/fetchimg/{eid}")
 	public ResponseEntity<ResponseStructure<Employee>> fetchImg(@PathVariable int eid) {
