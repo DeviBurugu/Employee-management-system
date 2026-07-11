@@ -44,7 +44,6 @@ public class EmployeeDao {
 	}
 
 	public Employee updateEmployee(Employee employee) {
-//		return repository.save(employee);
 		Optional<Employee> empdb= repo.findById(employee.getEid());
 		if(empdb.isPresent()) {
 			repo.save(employee);
