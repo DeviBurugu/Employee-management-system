@@ -31,7 +31,7 @@ delete1.addEventListener("click", (e) => {
       localStorage.removeItem("eid");
       alert("Deleted successfully");
       open("./home.html")
-      // Optionally, redirect or clear other fields as needed
+      
     } else {
       alert("Failed to delete");
     }
