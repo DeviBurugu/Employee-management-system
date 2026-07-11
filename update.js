@@ -60,7 +60,5 @@ update.addEventListener("click",(e)=>{
         alert("not update the data ")
     }
    })
-   
-    
-
 })
+
