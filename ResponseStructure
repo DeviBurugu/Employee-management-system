@@ -12,4 +12,3 @@ public class ResponseStructure<T> {
 	private LocalDateTime date= LocalDateTime.now();	
 }
 
-
