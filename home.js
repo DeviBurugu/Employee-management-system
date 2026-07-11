@@ -32,4 +32,3 @@ let update=document.getElementById("update")
 update.addEventListener("click",()=>{
     open("./update.html","_self")
 })
-
