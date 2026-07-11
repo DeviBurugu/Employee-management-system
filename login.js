@@ -27,8 +27,7 @@ submit.addEventListener("click",(e) => {
         localStorage.setItem("password", data.data.password)
         localStorage.setItem("phno", data.data.phno)
         localStorage.setItem("address", data.data.address)
-     
-    //   console.log(localStorage.getItem("address"));
+    
       alert("login successfully")
         open("./home.html", "_self")
     })
@@ -36,6 +35,3 @@ submit.addEventListener("click",(e) => {
     
     
 })
-// localStorage.removeItem("address")
-
-
