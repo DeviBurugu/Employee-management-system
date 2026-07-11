@@ -1,11 +1,5 @@
 
 let a = 10
-// console.log(a);
-// let name=document.getElementById("name")
-// let sal=document.getElementById("sal")
-// let email=document.getElementById("email")
-
-
 
 let submit = document.getElementById("submit")
 submit.onclick = (e) => {
@@ -38,23 +32,6 @@ submit.onclick = (e) => {
   })
   
 }
-
-
-// password vaildation
-
-
-// function check(password){
-//   let regex=//;
-//   let boo1 = regex.test(password)
-//   if(boo1) {
-//     console.log("password is matching the criteria");
-//   }
-//   else{
-//     console.log("password is  not matching the criteria");
-    
-//   }
-// }
-// check()
 
 let passworderror=document.getElementById("passworderror")
 password.addEventListener("keyup",()=>{
